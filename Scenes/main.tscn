@@ -1,10 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://ct3j6qyj8l0jx"]
+[gd_scene load_steps=23 format=3 uid="uid://ct3j6qyj8l0jx"]
 
 [ext_resource type="Script" path="res://Scripts/grid.gd" id="1_b362q"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_ka0ip"]
 [ext_resource type="Texture2D" uid="uid://bm0c22exil204" path="res://Assets/hit.png" id="2_231uf"]
 [ext_resource type="Texture2D" uid="uid://dqchnvfm1g3hk" path="res://Assets/miss.png" id="3_fiso6"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="5_qhwh6"]
+[ext_resource type="AudioStream" uid="uid://btunskboq67k2" path="res://Assets/sploosh.wav" id="6_d7b7u"]
+[ext_resource type="Script" path="res://Scripts/audio.gd" id="7_7g5y4"]
+[ext_resource type="Texture2D" uid="uid://dafevpwf775y4" path="res://Assets/squid.png" id="8_ronw8"]
 
 [sub_resource type="Gradient" id="Gradient_xpfdn"]
 offsets = PackedFloat32Array(0, 0.05, 0.95, 1)
@@ -178,6 +181,40 @@ text = "Try Again"
 [node name="Quit" type="Button" parent="NewGame/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_d7b7u")
+script = ExtResource("7_7g5y4")
+
+[node name="Ship2" type="Sprite2D" parent="."]
+position = Vector2(606, 96)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_ronw8")
+
+[node name="ShipDead" type="Sprite2D" parent="Ship2"]
+visible = false
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("2_231uf")
+
+[node name="Ship3" type="Sprite2D" parent="."]
+position = Vector2(606, 156)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_ronw8")
+
+[node name="ShipDead" type="Sprite2D" parent="Ship3"]
+visible = false
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("2_231uf")
+
+[node name="Ship4" type="Sprite2D" parent="."]
+position = Vector2(606, 216)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_ronw8")
+
+[node name="ShipDead" type="Sprite2D" parent="Ship4"]
+visible = false
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("2_231uf")
 
 [connection signal="fired" from="Grid" to="." method="_on_grid_fired"]
 [connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_shake_timer_timeout"]
