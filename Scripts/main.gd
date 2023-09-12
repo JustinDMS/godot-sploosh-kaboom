@@ -7,17 +7,20 @@ const SHIP_SIZES : Array[int] = [2, 3, 4]
 
 enum {HORIZONTAL, VERTICAL}
 
-var bombs_remaining : int = MAX_BOMBS
 var used_coords : Array[Vector2]
+var ship_coords : Dictionary
+var bombs_remaining : int = MAX_BOMBS
+
 
 @onready var grid = $Grid
-
+@onready var bombs_label = $HUD/Bombs
 
 func _ready():
 	@warning_ignore("assert_always_true")
 	assert(len(SHIP_SIZES) == MAX_SHIPS)
 	
 	generateShipPlacement()
+	updateBombLabel()
 
 
 func generateShipPlacement() -> void:
@@ -44,6 +47,7 @@ func generateShipPlacement() -> void:
 	
 	print("Placed ships!")
 	print(used_coords)
+	print(ship_coords)
 
 
 func checkOverlapping(orientation : int, ship_size : int, spawn_pos : Vector2) -> bool:
@@ -60,21 +64,41 @@ func checkOverlapping(orientation : int, ship_size : int, spawn_pos : Vector2) -
 
 
 func placeShip(orientation : int, ship_size : int, spawn_pos : Vector2) -> void:
+	var new_ship : Array[Vector2]
 	match orientation:
 		HORIZONTAL:
 			for c in range(ship_size):
-				used_coords.append(Vector2(spawn_pos.x + c, spawn_pos.y))
+				new_ship.append(Vector2(spawn_pos.x + c, spawn_pos.y))
 		VERTICAL:
 			for c in range(ship_size):
-				used_coords.append(Vector2(spawn_pos.x, spawn_pos.y + c))
+				new_ship.append(Vector2(spawn_pos.x, spawn_pos.y + c))
+	
+	ship_coords[ship_size] = new_ship
+	used_coords += new_ship
 
 
 func _on_grid_fired(pos : Vector2):
 	bombs_remaining -= 1
-	print("Fired on: ", pos)
-	print("Bombs remaining: ", bombs_remaining)
-	match used_coords.find(pos):
-		-1:
-			grid.setTileMiss(pos)
-		_:
+	updateBombLabel()
+	
+	print("\nFired on: ", pos)
+	
+	# Check every ships coordinates to see if it has been hit
+	for ship in ship_coords.keys():
+		# Found coordinate
+		if ship_coords[ship].find(pos) != -1:
 			grid.setTileHit(pos)
+			# Remove coordinates from ship
+			ship_coords[ship].erase(pos)
+			# Check if ship is sunk
+			if not ship_coords[ship]:
+				print("Ship size ", ship, " sunk!")
+				ship_coords.erase(ship)
+			return
+	
+	# If no ship coordinate is found, it's a miss
+	grid.setTileMiss(pos)
+
+
+func updateBombLabel() -> void:
+	bombs_label.set_text("Bombs Remaining: " + str(bombs_remaining))
