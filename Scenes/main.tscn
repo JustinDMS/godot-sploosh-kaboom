@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ct3j6qyj8l0jx"]
+[gd_scene load_steps=24 format=3 uid="uid://ct3j6qyj8l0jx"]
 
 [ext_resource type="Script" path="res://Scripts/grid.gd" id="1_b362q"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_ka0ip"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dqchnvfm1g3hk" path="res://Assets/miss.png" id="3_fiso6"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="5_qhwh6"]
 [ext_resource type="AudioStream" uid="uid://btunskboq67k2" path="res://Assets/sploosh.wav" id="6_d7b7u"]
+[ext_resource type="Script" path="res://Scripts/new_game.gd" id="6_vaq11"]
 [ext_resource type="Script" path="res://Scripts/audio.gd" id="7_7g5y4"]
 [ext_resource type="Texture2D" uid="uid://dafevpwf775y4" path="res://Assets/squid.png" id="8_ronw8"]
 
@@ -148,6 +149,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_vaq11")
 
 [node name="Panel" type="Panel" parent="NewGame"]
 layout_mode = 1
@@ -218,3 +220,5 @@ texture = ExtResource("2_231uf")
 
 [connection signal="fired" from="Grid" to="." method="_on_grid_fired"]
 [connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_shake_timer_timeout"]
+[connection signal="pressed" from="NewGame/Panel/CenterContainer/VBoxContainer/Play" to="NewGame" method="_on_play_pressed"]
+[connection signal="pressed" from="NewGame/Panel/CenterContainer/VBoxContainer/Quit" to="NewGame" method="_on_quit_pressed"]

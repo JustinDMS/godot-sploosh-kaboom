@@ -16,6 +16,7 @@ var bombs_remaining : int = MAX_BOMBS
 @onready var camera = $Camera2D
 @onready var audio = $AudioStreamPlayer
 @onready var dead_ship = load("res://Assets/squid_dead.png")
+@onready var new_game_hud = $NewGame
 
 
 func _ready():
@@ -84,7 +85,7 @@ func _on_grid_fired(pos : Vector2):
 	bombs_remaining -= 1
 	updateBombLabel()
 	
-	print("\nFired on: ", pos)
+	#print("\nFired on: ", pos)
 	
 	# Check every ships coordinates to see if it has been hit
 	for ship in ship_coords.keys():
@@ -98,15 +99,27 @@ func _on_grid_fired(pos : Vector2):
 				print("Ship size ", ship, " sunk!")
 				ship_coords.erase(ship)
 				setShipDead(ship)
+				print(ship_coords)
 			
 			# Camera shake
 			camera.shake()
 			audio.playHit()
+			
+			# All ships sunk
+			if ship_coords.is_empty():
+				new_game_hud.setLabelText(true)
+				new_game_hud.visible = true
+				return
 			return
 	
 	# If no ship coordinate is found, it's a miss
 	grid.setTileMiss(pos)
 	audio.playMiss()
+	
+	# Ran out of bombs
+	if bombs_remaining <= 0:
+		new_game_hud.setLabelText(false)
+		new_game_hud.visible = true
 
 
 func updateBombLabel() -> void:
