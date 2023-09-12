@@ -11,9 +11,10 @@ var used_coords : Array[Vector2]
 var ship_coords : Dictionary
 var bombs_remaining : int = MAX_BOMBS
 
-
 @onready var grid = $Grid
 @onready var bombs_label = $HUD/Bombs
+@onready var camera = $Camera2D
+
 
 func _ready():
 	@warning_ignore("assert_always_true")
@@ -94,6 +95,9 @@ func _on_grid_fired(pos : Vector2):
 			if not ship_coords[ship]:
 				print("Ship size ", ship, " sunk!")
 				ship_coords.erase(ship)
+			
+			# Camera shake
+			camera.shake()
 			return
 	
 	# If no ship coordinate is found, it's a miss
