@@ -1,3 +1,115 @@
-[gd_scene format=3 uid="uid://ct3j6qyj8l0jx"]
+[gd_scene load_steps=19 format=3 uid="uid://ct3j6qyj8l0jx"]
+
+[ext_resource type="Script" path="res://Scripts/grid.gd" id="1_b362q"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_ka0ip"]
+[ext_resource type="Texture2D" uid="uid://bm0c22exil204" path="res://Assets/hit.png" id="2_231uf"]
+[ext_resource type="Texture2D" uid="uid://dqchnvfm1g3hk" path="res://Assets/miss.png" id="3_fiso6"]
+
+[sub_resource type="Gradient" id="Gradient_xpfdn"]
+offsets = PackedFloat32Array(0, 0.05, 0.95, 1)
+colors = PackedColorArray(0.12549, 0.278431, 0.462745, 1, 0.0941176, 0.223529, 0.376471, 0, 0.0941176, 0.223529, 0.376471, 0, 0.12549, 0.278431, 0.462745, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rosuv"]
+gradient = SubResource("Gradient_xpfdn")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wiy6n"]
+resource_name = "vertical"
+texture = SubResource("GradientTexture2D_rosuv")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dwum6"]
+gradient = SubResource("Gradient_xpfdn")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p5w3u"]
+resource_name = "horizontal"
+texture = SubResource("GradientTexture2D_dwum6")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="Gradient" id="Gradient_3ga7g"]
+colors = PackedColorArray(0.0941176, 0.223529, 0.376471, 1, 0.0941176, 0.223529, 0.376471, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oyegj"]
+gradient = SubResource("Gradient_3ga7g")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07c2c"]
+resource_name = "game background"
+texture = SubResource("GradientTexture2D_oyegj")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="Gradient" id="Gradient_yri18"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.282004, 0.225333, 0.225315, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6c0fe"]
+gradient = SubResource("Gradient_yri18")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m3snf"]
+resource_name = "scene background"
+texture = SubResource("GradientTexture2D_6c0fe")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wmth6"]
+resource_name = "hit"
+texture = ExtResource("2_231uf")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kpf2"]
+resource_name = "miss"
+texture = ExtResource("3_fiso6")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5jme1"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_wiy6n")
+sources/1 = SubResource("TileSetAtlasSource_p5w3u")
+sources/2 = SubResource("TileSetAtlasSource_07c2c")
+sources/3 = SubResource("TileSetAtlasSource_m3snf")
+sources/4 = SubResource("TileSetAtlasSource_wmth6")
+sources/5 = SubResource("TileSetAtlasSource_5kpf2")
 
 [node name="Main" type="Node"]
+script = ExtResource("1_ka0ip")
+
+[node name="Grid" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_5jme1")
+format = 2
+layer_0/name = "background"
+layer_0/tile_data = PackedInt32Array(1, 3, 0, 65537, 2, 0, 131073, 2, 0, 196609, 2, 0, 262145, 2, 0, 327681, 2, 0, 393217, 2, 0, 458753, 2, 0, 524289, 2, 0, 2, 3, 0, 65538, 2, 0, 131074, 2, 0, 196610, 2, 0, 262146, 2, 0, 327682, 2, 0, 393218, 2, 0, 458754, 2, 0, 524290, 2, 0, 3, 3, 0, 65539, 2, 0, 131075, 2, 0, 196611, 2, 0, 262147, 2, 0, 327683, 2, 0, 393219, 2, 0, 458755, 2, 0, 524291, 2, 0, 4, 3, 0, 65540, 2, 0, 131076, 2, 0, 196612, 2, 0, 262148, 2, 0, 327684, 2, 0, 393220, 2, 0, 458756, 2, 0, 524292, 2, 0, 5, 3, 0, 65541, 2, 0, 131077, 2, 0, 196613, 2, 0, 262149, 2, 0, 327685, 2, 0, 393221, 2, 0, 458757, 2, 0, 524293, 2, 0, 6, 3, 0, 65542, 2, 0, 131078, 2, 0, 196614, 2, 0, 262150, 2, 0, 327686, 2, 0, 393222, 2, 0, 458758, 2, 0, 524294, 2, 0, 7, 3, 0, 65543, 2, 0, 131079, 2, 0, 196615, 2, 0, 262151, 2, 0, 327687, 2, 0, 393223, 2, 0, 458759, 2, 0, 524295, 2, 0, 8, 3, 0, 65544, 2, 0, 131080, 2, 0, 196616, 2, 0, 262152, 2, 0, 327688, 2, 0, 393224, 2, 0, 458760, 2, 0, 524296, 2, 0, 9, 3, 0, 65545, 3, 0, 131081, 3, 0, 196617, 3, 0, 262153, 3, 0, 327689, 3, 0, 393225, 3, 0, 458761, 3, 0, 524297, 3, 0, 0, 3, 0, 65536, 3, 0, 131072, 3, 0, 196608, 3, 0, 262144, 3, 0, 327680, 3, 0, 393216, 3, 0, 458752, 3, 0, 524288, 3, 0, 589824, 3, 0, 589825, 3, 0, 589826, 3, 0, 589827, 3, 0, 589828, 3, 0, 589829, 3, 0, 589830, 3, 0, 589831, 3, 0, 589832, 3, 0, 589833, 3, 0)
+layer_1/name = "grid x"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(65537, 1, 0, 131073, 1, 0, 196609, 1, 0, 262145, 1, 0, 327681, 1, 0, 393217, 1, 0, 458753, 1, 0, 524289, 1, 0, 65538, 1, 0, 131074, 1, 0, 196610, 1, 0, 262146, 1, 0, 327682, 1, 0, 393218, 1, 0, 458754, 1, 0, 524290, 1, 0, 65539, 1, 0, 131075, 1, 0, 196611, 1, 0, 262147, 1, 0, 327683, 1, 0, 393219, 1, 0, 458755, 1, 0, 524291, 1, 0, 65540, 1, 0, 131076, 1, 0, 196612, 1, 0, 262148, 1, 0, 327684, 1, 0, 393220, 1, 0, 458756, 1, 0, 524292, 1, 0, 65541, 1, 0, 131077, 1, 0, 196613, 1, 0, 262149, 1, 0, 327685, 1, 0, 393221, 1, 0, 458757, 1, 0, 524293, 1, 0, 65542, 1, 0, 131078, 1, 0, 196614, 1, 0, 262150, 1, 0, 327686, 1, 0, 393222, 1, 0, 458758, 1, 0, 524294, 1, 0, 65543, 1, 0, 131079, 1, 0, 196615, 1, 0, 262151, 1, 0, 327687, 1, 0, 393223, 1, 0, 458759, 1, 0, 524295, 1, 0, 65544, 1, 0, 131080, 1, 0, 196616, 1, 0, 262152, 1, 0, 327688, 1, 0, 393224, 1, 0, 458760, 1, 0, 524296, 1, 0)
+layer_2/name = "grid y"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array(65537, 0, 0, 131073, 0, 0, 196609, 0, 0, 262145, 0, 0, 327681, 0, 0, 393217, 0, 0, 458753, 0, 0, 524289, 0, 0, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0, 458754, 0, 0, 524290, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 262147, 0, 0, 327683, 0, 0, 393219, 0, 0, 458755, 0, 0, 524291, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 393220, 0, 0, 458756, 0, 0, 524292, 0, 0, 65541, 0, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 327685, 0, 0, 393221, 0, 0, 458757, 0, 0, 524293, 0, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 262150, 0, 0, 327686, 0, 0, 393222, 0, 0, 458758, 0, 0, 524294, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 0, 0, 262151, 0, 0, 327687, 0, 0, 393223, 0, 0, 458759, 0, 0, 524295, 0, 0, 65544, 0, 0, 131080, 0, 0, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 524296, 0, 0)
+layer_3/name = "ships"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 0
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "status"
+layer_4/enabled = true
+layer_4/modulate = Color(1, 1, 1, 1)
+layer_4/y_sort_enabled = false
+layer_4/y_sort_origin = 0
+layer_4/z_index = 0
+layer_4/tile_data = PackedInt32Array()
+script = ExtResource("1_b362q")
+
+[connection signal="fired" from="Grid" to="." method="_on_grid_fired"]
