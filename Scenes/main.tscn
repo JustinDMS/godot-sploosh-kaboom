@@ -112,4 +112,66 @@ layer_4/z_index = 0
 layer_4/tile_data = PackedInt32Array()
 script = ExtResource("1_b362q")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Bombs" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 46.0
+text = "Bombs Remaining: X"
+
+[node name="NewGame" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="NewGame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="NewGame/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGame/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGame/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="NewGame/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="Quit" type="Button" parent="NewGame/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
 [connection signal="fired" from="Grid" to="." method="_on_grid_fired"]
